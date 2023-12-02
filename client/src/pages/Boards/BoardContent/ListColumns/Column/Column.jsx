@@ -18,8 +18,21 @@ import Box from '@mui/material/Box'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import ListCards from './ListCards/ListCards'
 import { mapOrder } from '~/utils/sorts'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 const Column = ({ column }) => {
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    id: column._id,
+    data: { ...column }
+  })
+  const dndKitColumnStyles = {
+    // // For the default sensor of PointerSensor
+    // touchAction: 'none',
+    transform: CSS.Translate.toString(transform),
+    transition
+  }
+
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
@@ -28,20 +41,27 @@ const Column = ({ column }) => {
   const handleClose = () => {
     setAnchorEl(null)
   }
+
   const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
   return (
     <>
       {/* Box column */}
-      <Box sx={{
-        minWidth: '300px',
-        maxWidth: '300px',
-        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#4b6584' : '#d1d8e0'),
-        ml: 2,
-        borderRadius: '8px',
-        border: '1px solid #172b4d',
-        height: 'fit-content',
-        maxHeight: (theme) => `calc(${theme.trelloCustom.boardContentHeight} - ${theme.spacing(4)})`
-      }}>
+      <Box
+        ref={setNodeRef}
+        style={dndKitColumnStyles}
+        {...attributes}
+        {...listeners}
+        sx={{
+          minWidth: '300px',
+          maxWidth: '300px',
+          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#4b6584' : '#d1d8e0'),
+          ml: 2,
+          borderRadius: '8px',
+          border: '1px solid #172b4d',
+          height: 'fit-content',
+          maxHeight: (theme) => `calc(${theme.trelloCustom.boardContentHeight} - ${theme.spacing(4)})`
+        }}
+      >
         {/* Box column header */}
         <Box sx={{
           height: (theme) => theme.trelloCustom.columnHeaderHeight,
