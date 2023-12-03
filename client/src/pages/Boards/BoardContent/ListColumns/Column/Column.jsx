@@ -22,17 +22,18 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
 const Column = ({ column }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column }
   })
   const dndKitColumnStyles = {
-    // // For the default sensor of PointerSensor
-    // touchAction: 'none',
+    // touchAction: 'none', // For the default sensor of PointerSensor
+    // https://github.com/clauderic/dnd-kit/issues/117 - Variable sized sortables stretched when dragged #117
     transform: CSS.Translate.toString(transform),
-    transition
+    transition,
+    height: '100%',
+    opacity: isDragging ? 0.5 : undefined
   }
-
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
@@ -41,15 +42,15 @@ const Column = ({ column }) => {
   const handleClose = () => {
     setAnchorEl(null)
   }
-
   const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
   return (
-    <>
+    <div
+      ref={setNodeRef}
+      style={dndKitColumnStyles}
+      {...attributes}
+    >
       {/* Box column */}
       <Box
-        ref={setNodeRef}
-        style={dndKitColumnStyles}
-        {...attributes}
         {...listeners}
         sx={{
           minWidth: '300px',
@@ -173,7 +174,7 @@ const Column = ({ column }) => {
           </Tooltip>
         </Box>
       </Box>
-    </>
+    </div>
   )
 }
 
