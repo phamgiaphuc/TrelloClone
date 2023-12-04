@@ -51,6 +51,52 @@ const BoardContent = ({ board }) => {
     return orderedColumns.find(column => column?.cards?.map(card => card?._id)?.includes(cardId))
   }
 
+  // Update the state when dragging card between 2 different columns
+  const moveCardBetweenDifferentColumns = (
+    overColumn,
+    overCardId,
+    active,
+    over,
+    activeColumn,
+    activeDraggingCardId,
+    activeDraggingCardData
+  ) => {
+    setOrderedColumns(prevColumns => {
+      // Find the index of over card
+      const overCardIndex = overColumn?.cards?.findIndex(card => card._id === overCardId)
+      // Calculating logic of the new index for the draggiin card
+      let newCardIndex = null
+      const isBelowOverItem = active.rect.current.translated && active.rect.current.translated.top > over.rect.top + over.rect.height
+      const modifier = isBelowOverItem ? 1 : 0
+      newCardIndex = overCardIndex >= 0 ? overCardIndex + modifier : overColumn?.cards?.length + 1
+      // Using lodash library to clone the prevColumns
+      const nextColumns = cloneDeep(prevColumns)
+      // Old column
+      const nextActiveColumn = nextColumns.find(column => column._id === activeColumn._id)
+      // New column
+      const nextOverColumn = nextColumns.find(column => column._id === overColumn._id)
+      if (nextActiveColumn) {
+        // Delete card from the active column
+        nextActiveColumn.cards = nextActiveColumn.cards.filter(card => card._id !== activeDraggingCardId)
+        // Udpate the cardOrderIds of active column
+        nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(card => card._id)
+      }
+      if (nextOverColumn) {
+        // Delete card from the over column if the card is already existed in over column
+        nextOverColumn.cards = nextOverColumn.cards.filter(card => card._id !== activeDraggingCardId)
+        // Udpate the cards of over column with the newCardIndex
+        const rebuild_activeDraggingCardData = {
+          ...activeDraggingCardData,
+          column: nextOverColumn._id
+        }
+        nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, rebuild_activeDraggingCardData)
+        // Udpate the cardOrderIds of active column
+        nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
+      }
+      return nextColumns
+    })
+  }
+
   // Trigger when start to drag a component
   const handleDragStart = (event) => {
     // console.log('handleDragStart: ', event)
@@ -89,36 +135,15 @@ const BoardContent = ({ board }) => {
 
     // Check if the columns of 2 activeDraggingCard and overCard are different
     if (activeColumn._id !== overColumn._id) {
-      setOrderedColumns(prevColumns => {
-        // Find the index of over card
-        const overCardIndex = overColumn?.cards?.findIndex(card => card._id === overCardId)
-        // Calculating logic of the new index for the draggiin card
-        let newCardIndex = null
-        const isBelowOverItem = active.rect.current.translated && active.rect.current.translated.top > over.rect.top + over.rect.height
-        const modifier = isBelowOverItem ? 1 : 0
-        newCardIndex = overCardIndex >= 0 ? overCardIndex + modifier : overColumn?.cards?.length + 1
-        // Using lodash library to clone the prevColumns
-        const nextColumns = cloneDeep(prevColumns)
-        // Old column
-        const nextActiveColumn = nextColumns.find(column => column._id === activeColumn._id)
-        // New column
-        const nextOverColumn = nextColumns.find(column => column._id === overColumn._id)
-        if (nextActiveColumn) {
-          // Delete card from the active column
-          nextActiveColumn.cards = nextActiveColumn.cards.filter(card => card._id !== activeDraggingCardId)
-          // Udpate the cardOrderIds of active column
-          nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(card => card._id)
-        }
-        if (nextOverColumn) {
-          // Delete card from the over column if the card is already existed in over column
-          nextOverColumn.cards = nextOverColumn.cards.filter(card => card._id !== activeDraggingCardId)
-          // Udpate the cards of over column with the newCardIndex
-          nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, activeDraggingCardData)
-          // Udpate the cardOrderIds of active column
-          nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
-        }
-        return nextColumns
-      })
+      moveCardBetweenDifferentColumns(
+        overColumn,
+        overCardId,
+        active,
+        over,
+        activeColumn,
+        activeDraggingCardId,
+        activeDraggingCardData
+      )
     }
   }
 
@@ -146,36 +171,15 @@ const BoardContent = ({ board }) => {
 
       if (oldColumnWhenDragCard._id !== overColumn._id) {
         // In 2 columns
-        setOrderedColumns(prevColumns => {
-          // Find the index of over card
-          const overCardIndex = overColumn?.cards?.findIndex(card => card._id === overCardId)
-          // Calculating logic of the new index for the draggiin card
-          let newCardIndex = null
-          const isBelowOverItem = active.rect.current.translated && active.rect.current.translated.top > over.rect.top + over.rect.height
-          const modifier = isBelowOverItem ? 1 : 0
-          newCardIndex = overCardIndex >= 0 ? overCardIndex + modifier : overColumn?.cards?.length + 1
-          // Using lodash library to clone the prevColumns
-          const nextColumns = cloneDeep(prevColumns)
-          // Old column
-          const nextActiveColumn = nextColumns.find(column => column._id === activeColumn._id)
-          // New column
-          const nextOverColumn = nextColumns.find(column => column._id === overColumn._id)
-          if (nextActiveColumn) {
-            // Delete card from the active column
-            nextActiveColumn.cards = nextActiveColumn.cards.filter(card => card._id !== activeDraggingCardId)
-            // Udpate the cardOrderIds of active column
-            nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(card => card._id)
-          }
-          if (nextOverColumn) {
-            // Delete card from the over column if the card is already existed in over column
-            nextOverColumn.cards = nextOverColumn.cards.filter(card => card._id !== activeDraggingCardId)
-            // Udpate the cards of over column with the newCardIndex
-            nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, activeDraggingCardData)
-            // Udpate the cardOrderIds of active column
-            nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
-          }
-          return nextColumns
-        })
+        moveCardBetweenDifferentColumns(
+          overColumn,
+          overCardId,
+          active,
+          over,
+          activeColumn,
+          activeDraggingCardId,
+          activeDraggingCardData
+        )
       } else {
         // In 1 column
 
