@@ -18,8 +18,22 @@ import Box from '@mui/material/Box'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import ListCards from './ListCards/ListCards'
 import { mapOrder } from '~/utils/sorts'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 const Column = ({ column }) => {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: column._id,
+    data: { ...column }
+  })
+  const dndKitColumnStyles = {
+    // touchAction: 'none', // For the default sensor of PointerSensor
+    // https://github.com/clauderic/dnd-kit/issues/117 - Variable sized sortables stretched when dragged #117
+    transform: CSS.Translate.toString(transform),
+    transition,
+    height: '100%',
+    opacity: isDragging ? 0.5 : undefined
+  }
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
@@ -30,18 +44,25 @@ const Column = ({ column }) => {
   }
   const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
   return (
-    <>
+    <div
+      ref={setNodeRef}
+      style={dndKitColumnStyles}
+      {...attributes}
+    >
       {/* Box column */}
-      <Box sx={{
-        minWidth: '300px',
-        maxWidth: '300px',
-        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#4b6584' : '#d1d8e0'),
-        ml: 2,
-        borderRadius: '8px',
-        border: '1px solid #172b4d',
-        height: 'fit-content',
-        maxHeight: (theme) => `calc(${theme.trelloCustom.boardContentHeight} - ${theme.spacing(4)})`
-      }}>
+      <Box
+        {...listeners}
+        sx={{
+          minWidth: '300px',
+          maxWidth: '300px',
+          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#4b6584' : '#d1d8e0'),
+          ml: 2,
+          borderRadius: '8px',
+          border: '1px solid #172b4d',
+          height: 'fit-content',
+          maxHeight: (theme) => `calc(${theme.trelloCustom.boardContentHeight} - ${theme.spacing(4)})`
+        }}
+      >
         {/* Box column header */}
         <Box sx={{
           height: (theme) => theme.trelloCustom.columnHeaderHeight,
@@ -132,28 +153,31 @@ const Column = ({ column }) => {
           justifyContent: 'space-between'
         }}>
           <Button
-            variant="outlined"
             startIcon={<AddCardIcon />}
             sx={{
-              borderRadius: '8px',
-              color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2]: theme.listColors[0]),
-              backgroundColor: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
-              borderColor: '#172b4d',
-              '&:hover': {
-                backgroundColor: '#bdc3c7',
-                color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2] : theme.listColors[1]),
-                borderColor: '#1d2125'
-              }
+              // borderRadius: '8px',
+              // color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2]: theme.listColors[0]),
+              // backgroundColor: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
+              // borderColor: '#172b4d',
+              // '&:hover': {
+              //   backgroundColor: '#bdc3c7',
+              //   color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2] : theme.listColors[1]),
+              //   borderColor: '#1d2125'
+              // }
+              color: (theme) => (theme.palette.mode === 'dark' ? 'white' : theme.listColors[2])
             }}
           >
             Add new card
           </Button>
           <Tooltip title="Drag to move">
-            <DragHandleIcon sx={{ cursor: 'pointer' }}/>
+            <DragHandleIcon sx={{
+              cursor: 'pointer',
+              color: (theme) => (theme.palette.mode === 'dark' ? 'white' : theme.listColors[2])
+            }}/>
           </Tooltip>
         </Box>
       </Box>
-    </>
+    </div>
   )
 }
 

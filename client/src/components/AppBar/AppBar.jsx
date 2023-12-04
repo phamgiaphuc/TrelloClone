@@ -41,8 +41,13 @@ const AppBar = () => {
       bgcolor: (theme) => (theme.palette.mode === 'dark' ? theme.listBackgrounds[0] : theme.listBackgrounds[1])
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <AppsIcon sx={{ color: labelColor }}/>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <Button sx={{
+            minWidth: '4px',
+            color: (theme) => (theme.palette.mode === 'dark' ? 'white' : '#455570')
+          }}>
+            <AppsIcon sx={{ color: labelColor }}/>
+          </Button>
           <Button sx={{
             color: (theme) => (theme.palette.mode === 'dark' ? 'white' : '#455570')
           }}>
