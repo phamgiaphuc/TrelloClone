@@ -1,5 +1,6 @@
 {
   "name": "trello-server",
+  "type": "module",
   "version": "1.0.0",
   "description": "Backend for Trello Clone",
   "main": "src/server.js",
