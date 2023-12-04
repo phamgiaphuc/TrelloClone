@@ -20,7 +20,9 @@ const Card = ({ card }) => {
     // https://github.com/clauderic/dnd-kit/issues/117 - Variable sized sortables stretched when dragged #117
     transform: CSS.Translate.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : undefined
+    opacity: isDragging ? 0.5 : undefined,
+    border: isDragging ? ' 1px solid #172b4d' : undefined,
+    borderRadius: isDragging ? ' 9px' : undefined
   }
   const showCardActions = () => {
     return !!card?.memberIds?.length || !!card?.comments?.length || !!card?.attachments?.length
@@ -36,7 +38,8 @@ const Card = ({ card }) => {
           cursor: 'pointer',
           boxShadow: '0 1px 1px rgba(0, 0, 0, 0.2)',
           overflow: 'unset',
-          borderRadius: '8px'
+          borderRadius: '8px',
+          display: card?.FE_PlaceholderCard ? 'none' : 'block'
         }}
       >
         {card?.cover &&
