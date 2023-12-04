@@ -43,6 +43,7 @@ module.exports = {
     'keyword-spacing': 1, // Space between the keywords
     'comma-dangle': 1, // Require or disallow trailing commas (ending commas)
     'comma-spacing': 1, // Spacing after a comma
-    'arrow-spacing': 1 // Spacing after an arrow (function)
+    'arrow-spacing': 1, // Spacing after an arrow (function)
+    'no-extra-boolean-cast': 0
   },
 }
