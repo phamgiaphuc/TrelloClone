@@ -18,7 +18,6 @@ export const CONNECT_DB = async () => {
   await mongoClientInstance.connect();
   // Send a ping to confirm a successful connection
   trelloDatabaseInstance = await mongoClientInstance.db(env.DATABASE_NAME);
-  console.log('Pinged your deployment. You successfully connected to MongoDB!');
 }
 
 export const GET_DB = () => {

@@ -3,15 +3,14 @@ import asyncExitHook from 'async-exit-hook'
 import { CLOSE_DB, CONNECT_DB } from '~/config/mongodb'
 import 'dotenv/config'
 import { env } from '~/config/environment'
+import { APIs_V1 } from '~/routes/v1'
 
 const START_SERVER = () => {
   const app = express();
   const hostname = env.APP_HOST || "localhost";
   const port = env.APP_PORT || 8000;
 
-  app.get('/', async (req, res) => {
-    res.end('<h1>Hello World!</h1><hr>');
-  })
+  app.use('/v1', APIs_V1)
   app.listen(port, hostname, () => {
     console.log(`Server is running at http://${hostname}:${port}/`);
   })
@@ -26,7 +25,7 @@ const START_SERVER = () => {
 (async () => {
   try {
     await CONNECT_DB();
-    console.log('Connected to Mongodb Atlas!');
+    console.log('Successfully Connected to Mongodb Atlas!');
     START_SERVER();
   } catch (error) {
     console.error(error);
