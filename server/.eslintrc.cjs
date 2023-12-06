@@ -24,7 +24,7 @@ module.exports = {
     'object-curly-spacing': [1, 'always'],
     'indent': ['warn', 2],
     'semi': 0,
-    'quotes': ['error', 'single'],
+    'quotes': 0,
     'array-bracket-spacing': 0,
     'linebreak-style': 0,
     'no-unexpected-multiline': 'warn',
