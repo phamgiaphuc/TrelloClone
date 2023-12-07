@@ -1,11 +1,11 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { boardRoutes } from './boardRoutes';
+import { boardRoutes } from './boardRoute';
 
 const Router = express.Router();
 
 /**
- * Check APIs status
+ * Check APIs statusß
  */
 Router.get('/status', (req, res) => {
   res.status(StatusCodes.OK).json({

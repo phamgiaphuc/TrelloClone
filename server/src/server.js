@@ -10,6 +10,7 @@ const START_SERVER = () => {
   const hostname = env.APP_HOST || "localhost";
   const port = env.APP_PORT || 8000;
 
+  app.use(express.json())
   app.use('/v1', APIs_V1)
   app.listen(port, hostname, () => {
     console.log(`Server is running at http://${hostname}:${port}/`);
@@ -25,10 +26,10 @@ const START_SERVER = () => {
 (async () => {
   try {
     await CONNECT_DB();
-    console.log('Successfully Connected to Mongodb Atlas!');
+    console.log('Successfully connected to Mongodb Atlas!');
     START_SERVER();
   } catch (error) {
-    console.error(error);
+    console.log(error);
     process.exit(0);
   }
 })();
