@@ -22,7 +22,6 @@ const START_SERVER = () => {
     console.log('Server shuts down!');
   })
 }
-// IIFE (Immediately Invoked Function Expression)
 (async () => {
   try {
     await CONNECT_DB();
