@@ -14,3 +14,4 @@ https://www.npmjs.com/package/http-status-codes
 https://www.devhandbook.com/nodejs/express/request-object/
 - cross-env: development and production mode
 https://stackoverflow.com/questions/61166588/whats-the-difference-between-development-and-production-mode
+- slug: https://byby.dev/js-slugify-string
