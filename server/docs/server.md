@@ -12,4 +12,5 @@ https://www.npmjs.com/package/http-status-codes
   + req.cookies
   + req.jwtDecoded
 https://www.devhandbook.com/nodejs/express/request-object/
-
+- cross-env: development and production mode
+https://stackoverflow.com/questions/61166588/whats-the-difference-between-development-and-production-mode
