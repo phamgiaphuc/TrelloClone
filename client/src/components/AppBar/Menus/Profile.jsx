@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton'
 import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
+import { SAMPLE_USER_LOGO } from '~/utils/constants'
 
 const Profile = () => {
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -34,7 +35,7 @@ const Profile = () => {
           >
             <Avatar
               sx={{ width: 36, height: 36 }}
-              src='https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/281047074_703932134061076_561562736740530098_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=uzI1k69AN8sAX-UtaEd&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfCWY5FynTW2gj_htXoC0cDsndzbd-YncjevZYIYipJBrA&oe=657028F3'
+              src={SAMPLE_USER_LOGO}
               alt='phamgiaphuc'
             />
           </IconButton>
