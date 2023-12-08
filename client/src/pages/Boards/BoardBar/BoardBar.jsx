@@ -11,6 +11,7 @@ import Button from '@mui/material/Button'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import DividerLine from './DividerLine'
 import { capitalizeFirstLetter } from '~/utils/formatter'
+import { SAMPLE_USER_LOGO } from '~/utils/constants'
 
 const MENU_STYLES = {
   color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1]),
@@ -156,31 +157,31 @@ const BoardBar = ({ board }) => {
           >
             <Tooltip title="Pham Gia Phuc">
               <Avatar
-                src='https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/281047074_703932134061076_561562736740530098_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=uzI1k69AN8sAX-UtaEd&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfCWY5FynTW2gj_htXoC0cDsndzbd-YncjevZYIYipJBrA&oe=657028F3'
+                src={SAMPLE_USER_LOGO}
                 alt='phamgiaphuc'
               />
             </Tooltip>
             <Tooltip title="Pham Gia Phuc">
               <Avatar
-                src='https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/281047074_703932134061076_561562736740530098_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=uzI1k69AN8sAX-UtaEd&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfCWY5FynTW2gj_htXoC0cDsndzbd-YncjevZYIYipJBrA&oe=657028F3'
+                src={SAMPLE_USER_LOGO}
                 alt='phamgiaphuc'
               />
             </Tooltip>
             <Tooltip title="Pham Gia Phuc">
               <Avatar
-                src='https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/281047074_703932134061076_561562736740530098_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=uzI1k69AN8sAX-UtaEd&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfCWY5FynTW2gj_htXoC0cDsndzbd-YncjevZYIYipJBrA&oe=657028F3'
+                src={SAMPLE_USER_LOGO}
                 alt='phamgiaphuc'
               />
             </Tooltip>
             <Tooltip title="Pham Gia Phuc">
               <Avatar
-                src='https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/281047074_703932134061076_561562736740530098_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=uzI1k69AN8sAX-UtaEd&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfCWY5FynTW2gj_htXoC0cDsndzbd-YncjevZYIYipJBrA&oe=657028F3'
+                src={SAMPLE_USER_LOGO}
                 alt='phamgiaphuc'
               />
             </Tooltip>
             <Tooltip title="Pham Gia Phuc">
               <Avatar
-                src='https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/281047074_703932134061076_561562736740530098_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=uzI1k69AN8sAX-UtaEd&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfCWY5FynTW2gj_htXoC0cDsndzbd-YncjevZYIYipJBrA&oe=657028F3'
+                src={SAMPLE_USER_LOGO}
                 alt='phamgiaphuc'
               />
             </Tooltip>

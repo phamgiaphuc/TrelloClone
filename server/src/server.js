@@ -1,4 +1,6 @@
 import express from 'express'
+import cors from 'cors'
+import { corsOptions } from './config/cors'
 import asyncExitHook from 'async-exit-hook'
 import { CLOSE_DB, CONNECT_DB } from '~/config/mongodb'
 import 'dotenv/config'
@@ -11,6 +13,7 @@ const START_SERVER = () => {
   const hostname = env.APP_HOST || "localhost";
   const port = env.APP_PORT || 8000;
 
+  app.use(cors(corsOptions))
   app.use(express.json())
   app.use('/v1', APIs_V1)
   app.use(errorHandlingMiddleware)

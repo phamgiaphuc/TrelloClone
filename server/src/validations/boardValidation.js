@@ -4,18 +4,8 @@ import ApiError from '~/utils/ApiError';
 
 const createNew = async (req, res, next) => {
   const correctCodition = Joi.object({
-    title: Joi.string()
-      .required()
-      .min(3)
-      .max(50)
-      .trim()
-      .strict(),
-    description: Joi.string()
-      .required()
-      .min(3)
-      .max(256)
-      .trim()
-      .strict()
+    title: Joi.string().required().min(3).max(64).trim().strict(),
+    description: Joi.string().required().min(3).max(256).trim().strict()
   });
   try {
     await correctCodition.validateAsync(req.body, { abortEarly: false });
