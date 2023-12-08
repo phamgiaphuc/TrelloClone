@@ -67,7 +67,7 @@ const BoardBar = ({ board }) => {
             }}
           >
             <DashboardIcon />
-            {board?.title}
+            {board?.title ? board.title : 'No board'}
           </Button>
           <Button
             sx={MENU_STYLES}
@@ -76,7 +76,7 @@ const BoardBar = ({ board }) => {
             }
           >
             <PeopleIcon />
-            {capitalizeFirstLetter(board?.type)}
+            {board?.type ? capitalizeFirstLetter(board?.type) : 'No workspace visible'}
           </Button>
           <Button
             sx={MENU_STYLES}

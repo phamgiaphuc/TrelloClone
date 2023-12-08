@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 import Board from '~/pages/Boards/_id'
 
 function App() {
@@ -6,7 +7,9 @@ function App() {
     <>
       <React.Fragment>
         {/**React Router DOM*/}
-        <Board />
+        <Routes>
+          <Route path='/boards/:id' element={<Board />} />
+        </Routes>
       </React.Fragment>
     </>
   )

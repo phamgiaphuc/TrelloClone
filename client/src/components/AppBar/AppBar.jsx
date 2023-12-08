@@ -92,6 +92,7 @@ const AppBar = () => {
           variant="outlined"
           size="small"
           value={searchValue}
+          placeholder='Search'
           onChange={( event ) => {
             setSearchValue(event.target.value)
           }}
