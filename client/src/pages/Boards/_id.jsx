@@ -9,27 +9,27 @@ import BoardNotFound from './BoardNotFound/BoardNotFound'
 
 const Board = () => {
   const [board, setBoard] = useState(null)
-  const { id } = useParams()
+  const { boardId } = useParams()
   useEffect(() => {
-    fetchBoardDetailsAPI(id)
+    fetchBoardDetailsAPI(boardId)
       .then((data) => {
         setBoard(data)
-        document.title = `${data?.title ? data.title : 'No board'} | Trello`
+        document.title = `${data?.title} | Trello`
       })
-  }, [id])
+  }, [boardId])
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
       <AppBar />
       {
-        board ?
+        board?.statusCode ?
           (
             <>
-              <BoardBar board={ board }/>
-              <BoardContent board={ board }/>
+              <BoardNotFound board={ board }/>
             </>
           ) : (
             <>
-              <BoardNotFound board={ 'Board is not found' }/>
+              <BoardBar board={ board }/>
+              <BoardContent board={ board }/>
             </>
           )
       }
