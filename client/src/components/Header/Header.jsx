@@ -1,22 +1,73 @@
-import { AppBar, Button, Toolbar, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
+import LoginIcon from '@mui/icons-material/Login'
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import { Link } from 'react-router-dom'
+import ModeSelect from '../ModeSelect/ModeSelect'
+import { ReactComponent as TrelloIcon } from '~/assets/trello.svg'
+import SvgIcon from '@mui/material/SvgIcon'
+
+const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 
 const Header = () => {
   return (
     <>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Your Project Name
-          </Typography>
-          <Button color="inherit" component={Link} to="/login">
-            Login
+      <Box sx={{
+        width: '100%',
+        height: (theme) => theme.trelloCustom.appBarHeight,
+        display: 'flex',
+        position: 'fixed',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 2,
+        px: 2,
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? theme.listBackgrounds[0] : theme.listBackgrounds[1]),
+        zIndex: 999
+      }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Button sx={{
+            color: (theme) => (theme.palette.mode === 'dark' ? 'white' : '#455570')
+          }}>
+            <SvgIcon component={TrelloIcon} fontSize="small" inheritViewBox sx={{
+              color: labelColor,
+              flexGrow: 1
+            }}/>
+            <Typography variant='span' sx={{
+              fontSize: '1.3rem',
+              fontWeight: 'bold',
+              color: labelColor
+            }}>
+              Trello
+            </Typography>
           </Button>
-          <Button color="inherit" component={Link} to="/signup">
-            Signup
-          </Button>
-        </Toolbar>
-      </AppBar>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Button variant="outlined" startIcon={<LoginIcon />} sx={{
+            width: '115px',
+            color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2]: theme.listColors[0]),
+            backgroundColor: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
+            borderColor: '#172b4d',
+            gap: 0,
+            '&:hover': {
+              backgroundColor: '#bdc3c7',
+              color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2] : theme.listColors[1]),
+              borderColor: '#1d2125'
+            }
+          }}>Log in</Button>
+          <Button variant="outlined" startIcon={<AppRegistrationIcon />} sx={{
+            width: '115px',
+            color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2]: theme.listColors[0]),
+            backgroundColor: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
+            borderColor: '#172b4d',
+            gap: 0,
+            '&:hover': {
+              backgroundColor: '#bdc3c7',
+              color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2] : theme.listColors[1]),
+              borderColor: '#1d2125'
+            }
+          }}>Register</Button>
+          <ModeSelect />
+        </Box>
+      </Box>
     </>
   )
 }

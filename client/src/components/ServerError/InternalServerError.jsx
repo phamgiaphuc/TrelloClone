@@ -1,18 +1,20 @@
-import { Box, Link, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 import SvgIcon from '@mui/material/SvgIcon'
-import { ReactComponent as BoardIcon } from '~/assets/board.svg'
+import { ReactComponent as ServerError } from '~/assets/server-error.svg'
+import HomeIcon from '@mui/icons-material/Home';
 
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 
-const BoardNotFound = ({ board }) => {
-  document.title = 'No board | Trello'
+const InternalServerError = () => {
+  document.title = 'Server Error | Trello'
   return (
     <>
       <Box sx={{
-        borderTop: '1px solid #1d2125',
         backgroundColor: (theme) => (theme.palette.mode === 'dark' ? '#2c3e50' : '#ecf0f1'),
         width: '100%',
         height: (theme) => (theme.trelloCustom.boardNotFoundHeight),
+        borderTop: '1px solid #1d2125',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center'
@@ -22,7 +24,6 @@ const BoardNotFound = ({ board }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          textAlign: 'center',
           mx: 'auto'
         }}>
           <Box sx={{
@@ -31,7 +32,7 @@ const BoardNotFound = ({ board }) => {
             alignItems: 'center',
             gap: 1
           }}>
-            <SvgIcon component={BoardIcon} inheritViewBox sx={{
+            <SvgIcon component={ServerError} inheritViewBox sx={{
               fontSize: 72,
               color: labelColor
             }}/>
@@ -40,7 +41,7 @@ const BoardNotFound = ({ board }) => {
               fontWeight: 'bold',
               color: labelColor
             }}>
-              {board.statusCode}
+              500
             </Typography>
           </Box>
           <Typography variant='span' sx={{
@@ -49,29 +50,29 @@ const BoardNotFound = ({ board }) => {
             color: labelColor,
             mb: '16px'
           }}>
-            Opps. {board.message}
+            Opps. Internal Server Error!
           </Typography>
           <Typography variant='span' sx={{
             fontSize: '1.05rem',
             color: labelColor,
             mb: '16px'
           }}>
-            This board may be private. If someone gave you this link, they may need to share the board with you or invite you to their Workspaces.
+            The server has been deserted for a while. Please be patient or try again later.
           </Typography>
-          <Typography variant='span' sx={{
-            fontSize: '1.05rem',
-            color: labelColor,
-            textAlign: 'center'
-          }}>
-            Not you?
-            <Link href="#" underline="hover" sx={{
-              ml: '8px'
-            }}>Switch accounts</Link>
-          </Typography>
+          <Button
+            startIcon={<HomeIcon />}
+            sx={{
+              width: '100px',
+              color: labelColor,
+              gap: 0
+            }}
+          >
+            Home
+          </Button>
         </Box>
       </Box>
     </>
   )
 }
 
-export default BoardNotFound
+export default InternalServerError
