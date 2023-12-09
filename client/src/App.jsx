@@ -8,7 +8,7 @@ function App() {
     <>
       <React.Fragment>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/home' element={<Home />} />
           <Route path=':userId/boards/:boardId' element={<Board />} />
         </Routes>
       </React.Fragment>

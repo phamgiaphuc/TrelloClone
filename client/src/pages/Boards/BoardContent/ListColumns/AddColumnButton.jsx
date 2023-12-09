@@ -14,16 +14,7 @@ const AddColumnButton = () => {
         <Button
           startIcon={<PlaylistAddIcon />}
           sx={{
-            // borderRadius: '8px',
             width: '200px',
-            // color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2]: theme.listColors[0]),
-            // backgroundColor: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
-            // borderColor: '#172b4d',
-            // '&:hover': {
-            //   backgroundColor: '#bdc3c7',
-            //   color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2] : theme.listColors[1]),
-            //   borderColor: '#1d2125'
-            // }
             color: (theme) => (theme.palette.mode === 'dark' ? 'white' : theme.listColors[2])
           }}
         >

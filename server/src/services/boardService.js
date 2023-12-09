@@ -13,7 +13,7 @@ const createNew = async (data) => {
     const createBoard = await boardModel.createNew(boardData);
     const newBoardData = await boardModel.findOneById(createBoard.insertedId);
     if (!newBoardData) {
-      throw new ApiError(StatusCodes.NOT_FOUND, 'Board is not found!')
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Board not found!')
     }
     return newBoardData;
   } catch (error) { throw error }

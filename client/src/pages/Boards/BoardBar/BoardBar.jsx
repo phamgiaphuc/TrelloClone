@@ -131,6 +131,7 @@ const BoardBar = ({ board }) => {
               color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2]: theme.listColors[0]),
               backgroundColor: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
               borderColor: '#172b4d',
+              gap: 0,
               '&:hover': {
                 backgroundColor: '#bdc3c7',
                 color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2] : theme.listColors[1]),
