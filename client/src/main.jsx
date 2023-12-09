@@ -9,12 +9,12 @@ import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
-  <BrowserRouter>
-    <CssVarsProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </CssVarsProvider>
-  </BrowserRouter>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
+      <CssVarsProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </CssVarsProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 )

@@ -9,7 +9,7 @@ function App() {
       <React.Fragment>
         <Routes>
           <Route path='/home' element={<Home />} />
-          <Route path='/boards/:boardId' element={<Board />} />
+          <Route path='/home/:boardId' element={<Board />} />
         </Routes>
       </React.Fragment>
     </>
