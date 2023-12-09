@@ -3,7 +3,7 @@ import { checkServerStatus } from '~/apis'
 import Footer from '~/components/Footer/Footer'
 import Header from '~/components/Header/Header'
 import HomeContent from '~/components/HomeContent/HomeContent'
-import InternalServerError from '~/components/ServerError/InternalServerError'
+import InternalServerError from '~/pages/Auth/InternalServerError/InternalServerError'
 
 const Home = () => {
   const [serverStatus, setServerStatus] = useState(false)

@@ -19,6 +19,7 @@ import AddIcon from '@mui/icons-material/Add'
 import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
+import { Link } from 'react-router-dom'
 
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 const textColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2])
@@ -48,7 +49,9 @@ const AppBar = () => {
           </Button>
           <Button sx={{
             color: (theme) => (theme.palette.mode === 'dark' ? 'white' : '#455570')
-          }}>
+          }}
+          component={Link} to='/home'
+          >
             <SvgIcon component={TrelloIcon} fontSize="small" inheritViewBox sx={{ color: labelColor }}/>
             <Typography variant='span' sx={{
               fontSize: '1.3rem',
