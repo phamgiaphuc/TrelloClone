@@ -2,7 +2,7 @@ import { Box, Link, Typography } from '@mui/material'
 
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 
-const BoardNotFound = () => {
+const BoardNotFound = ({ board }) => {
   document.title = 'No board | Trello'
   return (
     <>
@@ -22,12 +22,19 @@ const BoardNotFound = () => {
           textAlign: 'center'
         }}>
           <Typography variant='span' sx={{
+            fontSize: '4rem',
+            fontWeight: 'bold',
+            color: labelColor
+          }}>
+            {board.statusCode}
+          </Typography>
+          <Typography variant='span' sx={{
             fontSize: '1.5rem',
             fontWeight: 'bold',
             color: labelColor,
             mb: '16px'
           }}>
-            Board is not found!
+            Opps. {board.message}
           </Typography>
           <Typography variant='span' sx={{
             fontSize: '1.05rem',

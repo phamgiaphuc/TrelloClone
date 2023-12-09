@@ -52,3 +52,6 @@ Currently, two official plugins are available:
 2. git add .
 3. git commit -m "<message>" --amend
 4. git push (origin) ("<branch_name>") -f 
+
+# Prevent React.StrictMode from rendering 2 times
+[My React Component is rendering twice because of Strict Mode](https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode)
