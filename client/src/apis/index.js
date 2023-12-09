@@ -9,3 +9,7 @@ export const fetchBoardDetailsAPI = async (boardId) => {
     return error.response.data
   }
 }
+
+export const checkServerStatus = async () => {
+  //
+}
