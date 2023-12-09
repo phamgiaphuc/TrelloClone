@@ -1,8 +1,7 @@
 import { Box, Button, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
 import SvgIcon from '@mui/material/SvgIcon'
 import { ReactComponent as ServerError } from '~/assets/server-error.svg'
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from '@mui/icons-material/Home'
 
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 

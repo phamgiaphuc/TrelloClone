@@ -1,7 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
 import LoginIcon from '@mui/icons-material/Login'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
-import { Link } from 'react-router-dom'
 import ModeSelect from '../ModeSelect/ModeSelect'
 import { ReactComponent as TrelloIcon } from '~/assets/trello.svg'
 import SvgIcon from '@mui/material/SvgIcon'
