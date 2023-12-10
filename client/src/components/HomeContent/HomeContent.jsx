@@ -183,7 +183,7 @@ const HomeContent = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 5,
+              gap: 8,
               mt: '1.5rem'
             }}>
               <Card sx={{ maxWidth: 360, height: 390, maxHeight: 390, backgroundColor: 'white' }}>

@@ -48,27 +48,29 @@ const BoardBar = ({ board }) => {
         bgcolor: (theme) => (theme.palette.mode === 'dark' ? theme.listBackgrounds[0] : theme.listBackgrounds[2])
       }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Button
-            sx={{
-              color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
-              backgroundColor: 'transparent',
-              fontSize: '18px',
-              fontWeight: 'bold',
-              borderRadius: '5px',
-              border: 'none',
-              height: '36px',
-              '.MuiSvgIcon-root': {
+          <Tooltip title={board?.description}>
+            <Button
+              sx={{
                 color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
-                fontSize: '1.25rem'
-              },
-              '&:hover': {
-                backgroundColor: (theme) => (theme.palette.mode === 'light' ? '#ced6e0' : '')
-              }
-            }}
-          >
-            <DashboardIcon />
-            {board?.title ? board.title : 'No board'}
-          </Button>
+                backgroundColor: 'transparent',
+                fontSize: '18px',
+                fontWeight: 'bold',
+                borderRadius: '5px',
+                border: 'none',
+                height: '36px',
+                '.MuiSvgIcon-root': {
+                  color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
+                  fontSize: '1.25rem'
+                },
+                '&:hover': {
+                  backgroundColor: (theme) => (theme.palette.mode === 'light' ? '#ced6e0' : '')
+                }
+              }}
+            >
+              <DashboardIcon />
+              {board?.title ? board.title : 'No board'}
+            </Button>
+          </Tooltip>
           <Button
             sx={MENU_STYLES}
             onClick={
