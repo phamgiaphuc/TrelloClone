@@ -25,7 +25,7 @@ const Header = () => {
         borderBottom: '1px solid #1d2125'
       }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Button component={Link} to='/home' sx={{
+          <Button component={Link} to='/' sx={{
             color: (theme) => (theme.palette.mode === 'dark' ? 'white' : '#455570')
           }}>
             <SvgIcon component={TrelloIcon} fontSize="small" inheritViewBox sx={{

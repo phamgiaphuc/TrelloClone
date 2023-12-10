@@ -1,0 +1,7 @@
+export const ROUTE_GLOBAL = '*'
+export const ROUTE_HOME = '/'
+export const ROUTE_LOGIN = '/login'
+export const ROUTE_REGISTER = '/register'
+export const ROUTE_CONTACTS = '/contacts'
+export const ROUTE_BOARDS = '/boards'
+export const ROUTE_BOARD_DETAILS = '/boards/:_id'

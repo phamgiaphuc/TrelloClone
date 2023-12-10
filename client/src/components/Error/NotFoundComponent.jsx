@@ -68,8 +68,8 @@ const NotFoundComponent = () => {
               gap: 0
             }}
             component={isHomePage ? 'a' : Link}
-            href={isHomePage ? '/home' : undefined}
-            to={isHomePage ? undefined : '/home'}
+            href={isHomePage ? '/' : undefined}
+            to={isHomePage ? undefined : '/'}
           >
             Home
           </Button>

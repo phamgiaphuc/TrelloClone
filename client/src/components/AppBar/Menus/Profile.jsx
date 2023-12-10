@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton'
 import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
-import { SAMPLE_USER_LOGO } from '~/utils/constants'
+import { SAMPLE_USER_LOGO } from '~/constants/sample_user_logo'
 
 const Profile = () => {
   const [anchorEl, setAnchorEl] = React.useState(null)

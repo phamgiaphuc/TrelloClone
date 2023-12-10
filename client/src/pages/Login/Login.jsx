@@ -1,5 +1,5 @@
 import Structure from '~/components/Structure/Structure'
-import { footerStyles } from '~/utils/footerStyles'
+import { footerStyles } from '~/constants/styles'
 
 const Login = () => {
   return (

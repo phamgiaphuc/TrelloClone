@@ -50,7 +50,7 @@ const AppBar = () => {
           <Button sx={{
             color: (theme) => (theme.palette.mode === 'dark' ? 'white' : '#455570')
           }}
-          component={Link} to='/home'
+          component={Link} to='/'
           >
             <SvgIcon component={TrelloIcon} fontSize="small" inheritViewBox sx={{ color: labelColor }}/>
             <Typography variant='span' sx={{
