@@ -20,6 +20,12 @@ import ListCards from './ListCards/ListCards'
 import { mapOrder } from '~/utils/sorts'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { InputAdornment, TextField } from '@mui/material'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import CloseIcon from '@mui/icons-material/Close'
+
+const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
+const textColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2])
 
 const Column = ({ column }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -43,6 +49,14 @@ const Column = ({ column }) => {
     setAnchorEl(null)
   }
   const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+  const [openNewCard, setOpenNewCard] = useState(false)
+  const toggleOpenNewCard = () => {
+    setOpenNewCard(!openNewCard)
+  }
+  const [cardTitle, setcardTitle] = useState('')
+  const addNewcard = () => {
+    // console.log(cardTitle)
+  }
   return (
     <div
       ref={setNodeRef}
@@ -147,34 +161,99 @@ const Column = ({ column }) => {
         {/* Box column footer */}
         <Box sx={{
           height: (theme) => theme.trelloCustom.columnFooterHeight,
-          p: '0 9px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
+          p: '0 9px'
         }}>
-          <Button
-            startIcon={<AddCardIcon />}
-            sx={{
-              // borderRadius: '8px',
-              // color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2]: theme.listColors[0]),
-              // backgroundColor: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
-              // borderColor: '#172b4d',
-              // '&:hover': {
-              //   backgroundColor: '#bdc3c7',
-              //   color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2] : theme.listColors[1]),
-              //   borderColor: '#1d2125'
-              // }
-              color: (theme) => (theme.palette.mode === 'dark' ? 'white' : theme.listColors[2])
-            }}
-          >
-            Add new card
-          </Button>
-          <Tooltip title="Drag to move">
-            <DragHandleIcon sx={{
-              cursor: 'pointer',
-              color: (theme) => (theme.palette.mode === 'dark' ? 'white' : theme.listColors[2])
-            }}/>
-          </Tooltip>
+          {
+            !openNewCard ?
+              (
+                <Box sx={{
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}>
+                  <Button
+                    startIcon={<AddCardIcon />}
+                    sx={{
+                      color: (theme) => (theme.palette.mode === 'dark' ? 'white' : theme.listColors[2])
+                    }}
+                    onClick={toggleOpenNewCard}
+                  >
+                    Add new card
+                  </Button>
+                  <Tooltip title="Drag to move">
+                    <DragHandleIcon sx={{
+                      cursor: 'pointer',
+                      color: (theme) => (theme.palette.mode === 'dark' ? 'white' : theme.listColors[2])
+                    }}/>
+                  </Tooltip>
+                </Box>
+              ) : (
+                <Box sx={{
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1
+                }}>
+                  <TextField
+                    label="Card name"
+                    type="text"
+                    variant="outlined"
+                    size="small"
+                    autoFocus
+                    value={cardTitle}
+                    placeholder='Enter a name'
+                    onChange={( event ) => {
+                      setcardTitle(event.target.value)
+                    }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <KeyboardArrowRightIcon sx={{ color: labelColor, cursor: 'pointer' }}/>
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <CloseIcon
+                          sx={{ color: labelColor, cursor: 'pointer', '&:hover': { color: '#e74c3c' } }}
+                          fontSize='small'
+                          onClick={toggleOpenNewCard}
+                        />
+                      )
+                    }}
+                    sx={{
+                      minWidth: '130px',
+                      width: '232px',
+                      bgcolor: (theme) => (theme.palette.mode === 'dark' ? theme.listBackgrounds[0] : theme.listBackgrounds[1]),
+                      borderRadius: '8px',
+                      '& label': { color: textColor },
+                      '& input': { color: textColor },
+                      '& label.Mui-focused': { color: labelColor },
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                          borderColor: labelColor
+                        },
+                        '&:hover fieldset': {
+                          borderColor: labelColor
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: labelColor
+                        }
+                      }
+                    }}
+                  />
+                  <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}>
+                    <Button startIcon={<AddCardIcon />} onClick={addNewcard} sx={{
+                      color: (theme) => (theme.palette.mode === 'dark' ? 'white' : theme.listColors[2])
+                    }}>
+                      Add
+                    </Button>
+                  </Box>
+                </Box>
+              )
+          }
         </Box>
       </Box>
     </div>

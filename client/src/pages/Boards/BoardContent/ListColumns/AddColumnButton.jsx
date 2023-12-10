@@ -2,12 +2,12 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 
-const AddColumnButton = () => {
+const AddColumnButton = ({ toggleOpenNewColumn }) => {
   return (
     <>
       {/* Add another list button */}
-      <Box sx={{
-        minWidth: '200px',
+      <Box onClick={toggleOpenNewColumn} sx={{
+        minWidth: '250px',
         maxWidth: '250px',
         mx: 2
       }}>

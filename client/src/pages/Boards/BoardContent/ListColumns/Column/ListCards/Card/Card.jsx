@@ -21,7 +21,7 @@ const Card = ({ card }) => {
     transform: CSS.Translate.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : undefined,
-    border: isDragging ? ' 1px solid #172b4d' : undefined,
+    border: isDragging ? '1px solid #172b4d' : undefined,
     borderRadius: isDragging ? ' 9px' : undefined
   }
   const showCardActions = () => {
@@ -39,6 +39,7 @@ const Card = ({ card }) => {
           boxShadow: '0 1px 1px rgba(0, 0, 0, 0.2)',
           overflow: 'unset',
           borderRadius: '8px',
+          '&:hover': { border: '1px solid #172b4d' },
           display: card?.FE_PlaceholderCard ? 'none' : 'block'
         }}
       >
