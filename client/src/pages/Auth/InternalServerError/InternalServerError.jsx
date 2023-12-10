@@ -2,10 +2,12 @@ import { Box, Button, Typography } from '@mui/material'
 import SvgIcon from '@mui/material/SvgIcon'
 import { ReactComponent as ServerError } from '~/assets/server-error.svg'
 import HomeIcon from '@mui/icons-material/Home'
+import { Link } from 'react-router-dom'
 
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 
 const InternalServerError = () => {
+  const isHomePage = location.pathname === '/home'
   document.title = 'Server Error | Trello'
   return (
     <>
@@ -65,6 +67,9 @@ const InternalServerError = () => {
               color: labelColor,
               gap: 0
             }}
+            component={isHomePage ? 'a' : Link}
+            href={isHomePage ? '/home' : undefined}
+            to={isHomePage ? undefined : '/home'}
           >
             Home
           </Button>

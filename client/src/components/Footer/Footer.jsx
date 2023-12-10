@@ -7,6 +7,7 @@ import ContactsIcon from '@mui/icons-material/Contacts'
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 
 const Footer = () => {
+  const isHomePage = location.pathname === '/home'
   return (
     <>
       <Box sx={{
@@ -25,7 +26,9 @@ const Footer = () => {
               color: labelColor,
               gap: 0
             }}
-            component={Link} to="/home"
+            component={isHomePage ? 'a' : Link}
+            href={isHomePage ? '/home' : undefined}
+            to={isHomePage ? undefined : '/home'}
           >
             Home
           </Button>
@@ -36,7 +39,7 @@ const Footer = () => {
               color: labelColor,
               gap: 0
             }}
-            component={Link} to="/login"
+            component={Link} to='/login'
           >
             Login
           </Button>
@@ -47,7 +50,7 @@ const Footer = () => {
               color: labelColor,
               gap: 0
             }}
-            component={Link} to="/contacts"
+            component={Link} to='/contacts'
           >
             Contacts
           </Button>

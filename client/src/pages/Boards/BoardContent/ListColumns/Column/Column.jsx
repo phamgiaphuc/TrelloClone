@@ -23,6 +23,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { InputAdornment, TextField } from '@mui/material'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import CloseIcon from '@mui/icons-material/Close'
+import { toast } from 'react-toastify'
 
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 const textColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2])
@@ -55,7 +56,10 @@ const Column = ({ column }) => {
   }
   const [cardTitle, setcardTitle] = useState('')
   const addNewcard = () => {
-    // console.log(cardTitle)
+    if (!cardTitle) {
+      toast.error('Card title is empty!')
+      return
+    }
   }
   return (
     <div

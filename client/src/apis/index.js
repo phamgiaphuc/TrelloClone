@@ -11,9 +11,9 @@ export const fetchBoardDetailsAPI = async (boardId) => {
 }
 
 export const checkServerStatus = async () => {
-  const request = await axios.get(`${API_ROOT}/v1/status`)
-  if (!request) {
-    return false
+  try {
+    return await axios.get(`${API_ROOT}/v1/status`)
+  } catch (error) {
+    return error
   }
-  return true
 }

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import AddCardIcon from '@mui/icons-material/AddCard'
+import { toast } from 'react-toastify'
 
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 const textColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2])
@@ -10,7 +11,10 @@ const textColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0
 const FormAddNewColum = ({ toggleOpenNewColumn }) => {
   const [columnTitle, setcolumnTitle] = useState('')
   const addNewColumn = () => {
-    console.log(columnTitle)
+    if (!columnTitle) {
+      toast.error('Column title is empty!')
+      return
+    }
   }
   return (
     <>
