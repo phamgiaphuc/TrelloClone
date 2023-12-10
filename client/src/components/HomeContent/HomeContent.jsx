@@ -9,7 +9,7 @@ import CardMedia from '@mui/material/CardMedia'
 import { CardActionArea } from '@mui/material'
 
 const HomeContent = () => {
-  const [searchValue, setSearchValue] = useState('')
+  const [emailValue, setemailValue] = useState('')
   const [isFocused, setIsFocused] = useState(false)
   document.title = 'Home | Trello'
   return (
@@ -55,18 +55,18 @@ const HomeContent = () => {
                 <TextField
                   placeholder='Email'
                   type="text"
-                  value={searchValue}
+                  value={emailValue}
                   onChange={( event ) => {
-                    setSearchValue(event.target.value)
+                    setemailValue(event.target.value)
                   }}
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
                   InputProps={{
                     endAdornment: (
                       <CloseIcon
-                        sx={{ color: searchValue ? 'black' : 'transparent', cursor: 'pointer' }}
+                        sx={{ color: emailValue ? 'black' : 'transparent', cursor: 'pointer' }}
                         fontSize='small'
-                        onClick={() => setSearchValue('')}
+                        onClick={() => setemailValue('')}
                       />
                     )
                   }}

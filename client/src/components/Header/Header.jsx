@@ -4,6 +4,7 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import ModeSelect from '../ModeSelect/ModeSelect'
 import { ReactComponent as TrelloIcon } from '~/assets/trello.svg'
 import SvgIcon from '@mui/material/SvgIcon'
+import { Link } from 'react-router-dom'
 
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 
@@ -20,10 +21,11 @@ const Header = () => {
         gap: 2,
         px: 2,
         bgcolor: (theme) => (theme.palette.mode === 'dark' ? theme.listBackgrounds[0] : theme.listBackgrounds[1]),
-        zIndex: 999
+        zIndex: 999,
+        borderBottom: '1px solid #1d2125'
       }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Button sx={{
+          <Button component={Link} to='/home' sx={{
             color: (theme) => (theme.palette.mode === 'dark' ? 'white' : '#455570')
           }}>
             <SvgIcon component={TrelloIcon} fontSize="small" inheritViewBox sx={{
@@ -40,7 +42,7 @@ const Header = () => {
           </Button>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Button variant="outlined" startIcon={<LoginIcon />} sx={{
+          <Button variant="outlined" startIcon={<LoginIcon />} component={Link} to='/login' sx={{
             width: '115px',
             color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2]: theme.listColors[0]),
             backgroundColor: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),
@@ -52,7 +54,7 @@ const Header = () => {
               borderColor: '#1d2125'
             }
           }}>Log in</Button>
-          <Button variant="outlined" startIcon={<AppRegistrationIcon />} sx={{
+          <Button variant="outlined" startIcon={<AppRegistrationIcon />} component={Link} to='/register' sx={{
             width: '115px',
             color: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[2]: theme.listColors[0]),
             backgroundColor: (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2]),

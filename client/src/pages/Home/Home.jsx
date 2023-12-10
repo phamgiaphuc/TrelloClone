@@ -1,40 +1,40 @@
 import { useEffect, useState } from 'react'
 import { checkServerStatus } from '~/apis'
-import Footer from '~/components/Footer/Footer'
-import Header from '~/components/Header/Header'
 import HomeContent from '~/components/HomeContent/HomeContent'
-import InternalServerError from '~/pages/Auth/InternalServerError/InternalServerError'
+import ServerErrorComponent from '~/components/Error/ServerErrorComponent'
 import { toast } from 'react-toastify'
+import Structure from '~/components/Structure/Structure'
 
 const Home = () => {
   const [serverStatus, setServerStatus] = useState(false)
+  const [serverStatusChecked, setServerStatusChecked] = useState(false)
+  const fetchServerStatus = async () => {
+    try {
+      const response = await checkServerStatus()
+      if (response.status) {
+        setServerStatus(true)
+        return
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Server status check failed:', error)
+      toast.error('Error checking server status')
+    } finally {
+      setServerStatusChecked(true)
+    }
+  }
   useEffect(() => {
-    checkServerStatus()
-      .then((response) => {
-        if (response.status) {
-          setServerStatus(response)
-          toast.success('Server is on!')
-          return
-        }
-        toast.error('Server is off!')
-      })
+    fetchServerStatus()
   }, [])
   return (
     <>
-      <Header />
-      {
-        serverStatus ?
-          (
-            <>
-              <HomeContent />
-            </>
-          ) : (
-            <>
-              <InternalServerError />
-            </>
-          )
-      }
-      <Footer />
+      <Structure>
+        {serverStatusChecked && (
+          <>
+            {serverStatus ? <HomeContent /> : <ServerErrorComponent />}
+          </>
+        )}
+      </Structure>
     </>
   )
 }
