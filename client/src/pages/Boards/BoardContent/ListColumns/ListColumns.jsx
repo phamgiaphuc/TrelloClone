@@ -2,8 +2,14 @@ import Box from '@mui/material/Box'
 import Column from './Column/Column'
 import AddColumnButton from './AddColumnButton'
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
+import { useState } from 'react'
+import FormAddNewColum from './FormAddNewColum'
 
 const ListColumns = ({ columns }) => {
+  const [openNewColumn, setOpenNewColumn] = useState(false)
+  const toggleOpenNewColumn = () => {
+    setOpenNewColumn(!openNewColumn)
+  }
   return (
     <SortableContext items={columns?.map(column => column._id)} strategy={horizontalListSortingStrategy}>
       <Box sx={{
@@ -18,7 +24,14 @@ const ListColumns = ({ columns }) => {
         }
       }}>
         {columns?.map(column => (<Column key={column._id} column={column} />))}
-        <AddColumnButton />
+        {
+          !openNewColumn ?
+            (
+              <AddColumnButton toggleOpenNewColumn={toggleOpenNewColumn}/>
+            ) : (
+              <FormAddNewColum toggleOpenNewColumn={toggleOpenNewColumn}/>
+            )
+        }
       </Box>
     </SortableContext>
   )

@@ -1,12 +1,14 @@
 import { Box, Button, Typography } from '@mui/material'
 import SvgIcon from '@mui/material/SvgIcon'
-import { ReactComponent as ServerError } from '~/assets/server-error.svg'
+import { ReactComponent as NotFoundError } from '~/assets/error-404.svg'
 import HomeIcon from '@mui/icons-material/Home'
+import { Link } from 'react-router-dom'
 
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 
-const InternalServerError = () => {
-  document.title = 'Server Error | Trello'
+const NotFoundComponent = () => {
+  const isHomePage = location.pathname === '/home'
+  document.title = 'Not Found Error | Trello'
   return (
     <>
       <Box sx={{
@@ -31,7 +33,7 @@ const InternalServerError = () => {
             alignItems: 'center',
             gap: 1
           }}>
-            <SvgIcon component={ServerError} inheritViewBox sx={{
+            <SvgIcon component={NotFoundError} inheritViewBox sx={{
               fontSize: 72,
               color: labelColor
             }}/>
@@ -40,7 +42,7 @@ const InternalServerError = () => {
               fontWeight: 'bold',
               color: labelColor
             }}>
-              500
+              404
             </Typography>
           </Box>
           <Typography variant='span' sx={{
@@ -49,14 +51,14 @@ const InternalServerError = () => {
             color: labelColor,
             mb: '16px'
           }}>
-            Opps. Internal Server Error!
+            Opps. Not Found Error!
           </Typography>
           <Typography variant='span' sx={{
             fontSize: '1.05rem',
             color: labelColor,
             mb: '16px'
           }}>
-            The server has been deserted for a while. Please be patient or try again later.
+            The page you are looking for does not exist.
           </Typography>
           <Button
             startIcon={<HomeIcon />}
@@ -65,6 +67,9 @@ const InternalServerError = () => {
               color: labelColor,
               gap: 0
             }}
+            component={isHomePage ? 'a' : Link}
+            href={isHomePage ? '/home' : undefined}
+            to={isHomePage ? undefined : '/home'}
           >
             Home
           </Button>
@@ -74,4 +79,4 @@ const InternalServerError = () => {
   )
 }
 
-export default InternalServerError
+export default NotFoundComponent

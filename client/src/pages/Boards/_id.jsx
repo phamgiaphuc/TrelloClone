@@ -16,7 +16,7 @@ const Board = () => {
         setBoard(data)
         document.title = `${data?.title} | Trello`
       })
-  }, [boardId])
+  }, [boardId, board?.title])
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
       <AppBar />
