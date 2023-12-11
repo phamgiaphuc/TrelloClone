@@ -14,6 +14,7 @@ const ListCards = ({ cards }) => {
         gap: 1,
         overflowX: 'hidden',
         overflowY: 'auto',
+        height: 'fit-content',
         maxHeight: (theme) => `calc(
           ${theme.trelloCustom.boardContentHeight} - 
           ${theme.spacing(4)} -

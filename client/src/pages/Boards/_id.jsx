@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react'
 import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI } from '~/apis'
 import { useParams } from 'react-router-dom'
 import BoardNotFound from './BoardNotFound/BoardNotFound'
+import { generatePlaceholderCard } from '~/utils/formatter'
+import { isEmpty } from 'lodash'
 
 const Board = () => {
   const [board, setBoard] = useState(null)
@@ -13,6 +15,14 @@ const Board = () => {
   useEffect(() => {
     fetchBoardDetailsAPI(_id)
       .then((data) => {
+        data.columns.forEach(column => {
+          if (isEmpty(column.cards)) {
+            const placeholder_card = generatePlaceholderCard(column)
+            column.cards.push(placeholder_card)
+            column.cardOrderIds.push(placeholder_card._id)
+            return
+          }
+        })
         setBoard(data)
         document.title = `${data?.title} | Trello`
       })
@@ -22,14 +32,27 @@ const Board = () => {
       ...columnData,
       boardId: _id
     })
-    console.log(newColumn)
+    newColumn.cards.push(generatePlaceholderCard(newColumn))
+    newColumn.cardOrderIds.push(generatePlaceholderCard(newColumn)._id)
+    // Refresh the board state
+    const newBoard = { ...board }
+    newBoard.columns.push(newColumn)
+    newBoard.columnOrderIds.push(newColumn._id)
+    setBoard(newBoard)
   }
   const createNewCard = async (cardData) => {
     const newCard = await createNewCardAPI({
       ...cardData,
       boardId: board._id
     })
-    console.log(newCard)
+    // Refresh the board state
+    const newBoard = { ...board }
+    const columnToUpdate = newBoard.columns.find(column => column._id === newCard.columnId)
+    if (columnToUpdate) {
+      columnToUpdate.cards.push(newCard)
+      columnToUpdate.cardOrderIds.push(newCard._id)
+    }
+    setBoard(newBoard)
   }
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>

@@ -4,8 +4,8 @@ import { mapOrder } from '~/utils/sorts'
 import {
   DndContext,
   // PointerSensor,
-  MouseSensor,
-  TouchSensor,
+  // MouseSensor,
+  // TouchSensor,
   useSensor,
   useSensors,
   DragOverlay,
@@ -16,6 +16,7 @@ import {
   // rectIntersection,
   getFirstCollision
 } from '@dnd-kit/core'
+import { MouseSensor, TouchSensor } from '~/utils/customlibs/DndKitSensors'
 import { arrayMove } from '@dnd-kit/sortable'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { cloneDeep, isEmpty } from 'lodash'
@@ -32,7 +33,6 @@ const BoardContent = ({ board, createNewColumn, createNewCard }) => {
   // Require the mouse to move by 10 pixels before activating
   // const pointerSensor = useSensor(PointerSensor, { activationConstraint: { distance: 10 } })
   const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } })
-
 
   // Hold for 250ms and tolerance for 5px of movement to activate
   const touchSensor = useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 500 } })

@@ -177,7 +177,7 @@ const Column = ({ column, createNewCard }) => {
           {
             !openNewCard ?
               (
-                <Box sx={{
+                <Box data-no-dnd="true" sx={{
                   height: '100%',
                   display: 'flex',
                   alignItems: 'center',
@@ -212,6 +212,7 @@ const Column = ({ column, createNewCard }) => {
                     variant="outlined"
                     size="small"
                     autoFocus
+                    data-no-dnd="true"
                     value={cardTitle}
                     placeholder='Enter a name'
                     onChange={( event ) => {
