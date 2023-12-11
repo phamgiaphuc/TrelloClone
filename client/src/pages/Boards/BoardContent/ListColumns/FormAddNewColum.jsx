@@ -8,13 +8,20 @@ import { toast } from 'react-toastify'
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 const textColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2])
 
-const FormAddNewColum = ({ toggleOpenNewColumn }) => {
-  const [columnTitle, setcolumnTitle] = useState('')
-  const addNewColumn = () => {
+const FormAddNewColum = ({ toggleOpenNewColumn, createNewColumn }) => {
+  const [columnTitle, setColumnTitle] = useState('')
+  const addNewColumn = async () => {
     if (!columnTitle) {
       toast.error('Column title is empty!')
       return
     }
+    // createNewColumnAPI
+    const newColumnTitle = {
+      title: columnTitle
+    }
+    await createNewColumn(newColumnTitle)
+    toggleOpenNewColumn()
+    setColumnTitle('')
   }
   return (
     <>
@@ -40,7 +47,7 @@ const FormAddNewColum = ({ toggleOpenNewColumn }) => {
           value={columnTitle}
           placeholder='Enter a name'
           onChange={( event ) => {
-            setcolumnTitle(event.target.value)
+            setColumnTitle(event.target.value)
           }}
           InputProps={{
             startAdornment: (

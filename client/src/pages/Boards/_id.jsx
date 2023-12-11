@@ -3,7 +3,7 @@ import BoardBar from './BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
 import AppBar from '~/components/AppBar/AppBar'
 import { useEffect, useState } from 'react'
-import { fetchBoardDetailsAPI } from '~/apis'
+import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI } from '~/apis'
 import { useParams } from 'react-router-dom'
 import BoardNotFound from './BoardNotFound/BoardNotFound'
 
@@ -17,6 +17,20 @@ const Board = () => {
         document.title = `${data?.title} | Trello`
       })
   }, [_id, board?.title])
+  const createNewColumn = async (columnData) => {
+    const newColumn = await createNewColumnAPI({
+      ...columnData,
+      boardId: _id
+    })
+    console.log(newColumn)
+  }
+  const createNewCard = async (cardData) => {
+    const newCard = await createNewCardAPI({
+      ...cardData,
+      boardId: board._id
+    })
+    console.log(newCard)
+  }
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
       <AppBar />
@@ -24,12 +38,16 @@ const Board = () => {
         board?.statusCode ?
           (
             <>
-              <BoardNotFound board={ board }/>
+              <BoardNotFound board={board}/>
             </>
           ) : (
             <>
-              <BoardBar board={ board }/>
-              <BoardContent board={ board }/>
+              <BoardBar board={board}/>
+              <BoardContent
+                board={board}
+                createNewColumn={createNewColumn}
+                createNewCard={createNewCard}
+              />
             </>
           )
       }

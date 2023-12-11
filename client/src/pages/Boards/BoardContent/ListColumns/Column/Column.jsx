@@ -28,7 +28,7 @@ import { toast } from 'react-toastify'
 const labelColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[1])
 const textColor = (theme) => (theme.palette.mode === 'dark' ? theme.listColors[0] : theme.listColors[2])
 
-const Column = ({ column }) => {
+const Column = ({ column, createNewCard }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column }
@@ -54,12 +54,19 @@ const Column = ({ column }) => {
   const toggleOpenNewCard = () => {
     setOpenNewCard(!openNewCard)
   }
-  const [cardTitle, setcardTitle] = useState('')
-  const addNewcard = () => {
+  const [cardTitle, setCardTitle] = useState('')
+  const addNewcard = async () => {
     if (!cardTitle) {
       toast.error('Card title is empty!')
       return
     }
+    const newCardData = {
+      title: cardTitle,
+      columnId: column._id
+    }
+    await createNewCard(newCardData)
+    toggleOpenNewCard()
+    setCardTitle('')
   }
   return (
     <div
@@ -208,7 +215,7 @@ const Column = ({ column }) => {
                     value={cardTitle}
                     placeholder='Enter a name'
                     onChange={( event ) => {
-                      setcardTitle(event.target.value)
+                      setCardTitle(event.target.value)
                     }}
                     InputProps={{
                       startAdornment: (

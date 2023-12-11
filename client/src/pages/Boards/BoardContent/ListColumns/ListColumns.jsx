@@ -5,7 +5,7 @@ import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortabl
 import { useState } from 'react'
 import FormAddNewColum from './FormAddNewColum'
 
-const ListColumns = ({ columns }) => {
+const ListColumns = ({ columns, createNewColumn, createNewCard }) => {
   const [openNewColumn, setOpenNewColumn] = useState(false)
   const toggleOpenNewColumn = () => {
     setOpenNewColumn(!openNewColumn)
@@ -23,13 +23,13 @@ const ListColumns = ({ columns }) => {
           m: 2
         }
       }}>
-        {columns?.map(column => (<Column key={column._id} column={column} />))}
+        {columns?.map(column => (<Column key={column._id} column={column} createNewCard={createNewCard} />))}
         {
           !openNewColumn ?
             (
               <AddColumnButton toggleOpenNewColumn={toggleOpenNewColumn}/>
             ) : (
-              <FormAddNewColum toggleOpenNewColumn={toggleOpenNewColumn}/>
+              <FormAddNewColum toggleOpenNewColumn={toggleOpenNewColumn} createNewColumn={createNewColumn}/>
             )
         }
       </Box>
