@@ -31,6 +31,15 @@ export const createNewCardAPI = async (cardData) => {
   }
 }
 
+export const updateBoardDetailAPI = async (boardId, updateData) => {
+  try {
+    const response = await axios.put(`${API_SERVER}/v1/boards/${boardId}`, updateData)
+    return response.data
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 export const checkServerStatus = async () => {
   try {
     return await axios.get(`${API_SERVER}/v1/status`)

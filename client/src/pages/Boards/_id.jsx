@@ -3,7 +3,7 @@ import BoardBar from './BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
 import AppBar from '~/components/AppBar/AppBar'
 import { useEffect, useState } from 'react'
-import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI } from '~/apis'
+import { fetchBoardDetailsAPI, createNewColumnAPI, createNewCardAPI, updateBoardDetailAPI } from '~/apis'
 import { useParams } from 'react-router-dom'
 import BoardNotFound from './BoardNotFound/BoardNotFound'
 import { generatePlaceholderCard } from '~/utils/formatter'
@@ -15,18 +15,21 @@ const Board = () => {
   useEffect(() => {
     fetchBoardDetailsAPI(_id)
       .then((data) => {
-        data.columns.forEach(column => {
-          if (isEmpty(column.cards)) {
-            const placeholder_card = generatePlaceholderCard(column)
-            column.cards.push(placeholder_card)
-            column.cardOrderIds.push(placeholder_card._id)
-            return
-          }
-        })
+        if (data?.columns) {
+          data.columns.forEach(column => {
+            if (isEmpty(column.cards)) {
+              const placeholder_card = generatePlaceholderCard(column)
+              column.cards.push(placeholder_card)
+              column.cardOrderIds.push(placeholder_card._id)
+              return
+            }
+          })
+          setBoard(data)
+          document.title = `${data?.title} | Trello`
+        }
         setBoard(data)
-        document.title = `${data?.title} | Trello`
       })
-  }, [_id, board?.title])
+  }, [_id])
   const createNewColumn = async (columnData) => {
     const newColumn = await createNewColumnAPI({
       ...columnData,
@@ -54,6 +57,18 @@ const Board = () => {
     }
     setBoard(newBoard)
   }
+
+  const updateColumnOrder = async (dndOrderedColumns) => {
+    const dndOrderedColumnsIds = dndOrderedColumns.map(column => column._id)
+    const newBoard = {
+      ...board,
+      columnOrderIds: dndOrderedColumnsIds,
+      columns: dndOrderedColumns
+    }
+    setBoard(newBoard)
+    await updateBoardDetailAPI(newBoard._id, { columnOrderIds: newBoard.columnOrderIds })
+  }
+
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
       <AppBar />
@@ -70,6 +85,7 @@ const Board = () => {
                 board={board}
                 createNewColumn={createNewColumn}
                 createNewCard={createNewCard}
+                updateColumnOrder={updateColumnOrder}
               />
             </>
           )

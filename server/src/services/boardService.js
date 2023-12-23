@@ -3,7 +3,6 @@ import { slugify } from '~/utils/formatters'
 import { boardModel } from '~/models/boardModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
-import { cloneDeep } from 'lodash'
 
 const createNew = async (data) => {
   try {
@@ -22,21 +21,41 @@ const createNew = async (data) => {
 
 const getDetails = async (id) => {
   try {
-    const boardData = await boardModel.getDetails(id);
+    let boardData = await boardModel.getDetails(id);
     if (!boardData) {
       throw new ApiError(StatusCodes.NOT_FOUND, 'Board not found!');
     }
-    const modifyBoardData = cloneDeep(boardData);
-    modifyBoardData.columns.forEach(column => {
-      column.cards = modifyBoardData.cards.filter(card => card.columnId.toString() === column._id.toString())
+    boardData.columns.forEach(column => {
+      column.cards = boardData.cards.filter(card => card.columnId.toString() === column._id.toString())
     });
-    modifyBoardData.columnOrderIds = modifyBoardData.columns.map(column => column._id);
-    delete modifyBoardData.cards;
-    return modifyBoardData;
+    const newData = boardData.columnOrderIds.map((columnId) => {
+      const temp = boardData.columns.find((item) => {
+        return item['_id'].toString() === columnId
+      })
+      return temp
+    });
+    boardData = {
+      ...boardData,
+      columns: newData
+    };
+    delete boardData.cards;
+    return boardData;
+  } catch (error) { throw error }
+}
+
+const updateBoard = async (id, data) => {
+  try {
+    const updateData = {
+      ...data,
+      updatedAt: Date.now()
+    }
+    const boardData = await boardModel.updateBoard(id, updateData);
+    return boardData;
   } catch (error) { throw error }
 }
 
 export const boardService = {
   createNew,
-  getDetails
+  getDetails,
+  updateBoard
 }

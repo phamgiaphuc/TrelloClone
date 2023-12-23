@@ -177,7 +177,7 @@ const Column = ({ column, createNewCard }) => {
           {
             !openNewCard ?
               (
-                <Box data-no-dnd="true" sx={{
+                <Box sx={{
                   height: '100%',
                   display: 'flex',
                   alignItems: 'center',
